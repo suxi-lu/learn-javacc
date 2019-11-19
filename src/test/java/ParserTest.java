@@ -1,3 +1,5 @@
+import com.learn.javacc.cust.RSQLParser;
+import com.learn.javacc.cust.asm.Node;
 import org.junit.Test;
 
 /**
@@ -16,7 +18,14 @@ public class ParserTest {
 
     @Test
     public void parserTest() {
+        String query = "genres=in=(sci-fi,action);genres=out=(romance,animated,horror),director=='Que*Tarantino'";
+//        String query = "genres=in=(sci-fi,action);(director=='Christopher Nolan',actor==*Bale);year=ge=2000";
+//        String query = "director.lastName==Nolan;year=ge=2000;year=lt=2010";
 
+        RSQLParser rsqlParser = new RSQLParser();
+        Node node = rsqlParser.parse(query);
+
+        System.out.println();
     }
 
 }
