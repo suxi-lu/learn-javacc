@@ -1,6 +1,12 @@
 package com.learn.javacc.rsql.asm;
 
+import com.learn.javacc.rsql.asm.node.*;
+import com.learn.javacc.rsql.exception.GlobalCommonException;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p> Title: 标题 </p>
@@ -16,11 +22,25 @@ import java.util.List;
  */
 public class NodeFactory {
 
-    public Node createWhereNode(WhereSymbol whereSymbol, List<Node> nodeList) {
-        return null;
+    private final Map<String, WhereOperator> whereOperatorMap;
+
+    public NodeFactory(Set<WhereOperator> whereOperatorSet) {
+        this.whereOperatorMap = new HashMap<>(whereOperatorSet.size());
+
+        for (WhereOperator operator : whereOperatorSet) {
+
+        }
     }
 
-    public ConditionNode createComparisonNode(String fieldName, String operate, List<String> value) {
+    public Node createConditionNode(ConditionSymbol conditionSymbol, List<Node> nodeList) {
+        switch (conditionSymbol) {
+            case OR: return new OrNode(nodeList);
+            case AND: return new AndNode(nodeList);
+            default: throw new GlobalCommonException();
+        }
+    }
+
+    public ConditionNode createWhereNode(String fieldName, String operate, List<String> value) {
         return null;
     }
 

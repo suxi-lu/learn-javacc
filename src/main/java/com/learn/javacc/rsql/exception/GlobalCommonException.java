@@ -1,19 +1,16 @@
-package com.learn.javacc.rsql.asm;
+package com.learn.javacc.rsql.exception;
 
 /**
  * <p> Title: 标题 </p>
  * <pre> Description: 描述 </pre>
- * date: 2019/11/19 23:10
+ * date: 2019/11/20
  * <p>
  * Copyright: © 2012-2019 CSG. All rights reserved.
  * Company: CSG
  *
  * @author lu_it:1300815418@qq.com
  * @version V1.0
- * @Package com.learn.javacc.rsql.asm
+ * @Package com.learn.javacc.rsql.exception
  */
-public class WhereNode implements Node {
-
-
-
+public class GlobalCommonException extends RuntimeException {
 }

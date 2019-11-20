@@ -1,11 +1,9 @@
-package com.learn.javacc.rsql.asm;
-
-import java.util.regex.Pattern;
+package com.learn.javacc.rsql.asm.node;
 
 /**
  * <p> Title: 标题 </p>
  * <pre> Description: 描述 </pre>
- * date: 2019/11/19 21:12
+ * date: 2019/11/19 20:31
  * <p>
  * Copyright: © 2012-2019 CSG. All rights reserved.
  * Company: CSG
@@ -14,8 +12,5 @@ import java.util.regex.Pattern;
  * @version V1.0
  * @Package com.learn.javacc.rsql
  */
-public class ConditionSymbol {
-
-    private static final Pattern SYMBOL_PATTERN = Pattern.compile("=[a-zA-Z]*=|[><]=?|!=");
-
+public interface Node {
 }

@@ -10,27 +10,28 @@ options {
     SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
 }
 
-PARSER_BEGIN(com.learn.javacc.rsql.parser.Parser)
+PARSER_BEGIN(Parser)
 
 import com.learn.javacc.rsql.asm.*;
+import com.learn.javacc.rsql.asm.node.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-final class com.learn.javacc.rsql.parser.Parser {
+final class Parser {
 
     private NodeFactory factory;
 
-    public com.learn.javacc.rsql.parser.Parser(InputStream stream, String encoding, NodeFactory factory) {
+    public Parser(InputStream stream, String encoding, NodeFactory factory) {
         this(stream, encoding);
         this.factory = factory;
     }
 
 }
 
-PARSER_END(com.learn.javacc.rsql.parser.Parser)
+PARSER_END(Parser)
 
 
 SKIP :
@@ -80,7 +81,7 @@ Node Or() :
     (
         <OR> node = And() { nodeList.add(node); }
     )*
-    { return nodeList.size() != 1 ? factory.createWhereNode(WhereSymbol.OR, nodeList) : nodeList.get(0); }
+    { return nodeList.size() != 1 ? factory.createConditionNode(WhereSymbol.OR, nodeList) : nodeList.get(0); }
 }
 
 Node And() :
@@ -93,7 +94,7 @@ Node And() :
     (
         <AND> node = Constraint() { nodeList.add(node); }
     )*
-    { return nodeList.size() != 1 ? factory.createWhereNode(WhereSymbol.AND, nodeList) : nodeList.get(0); }
+    { return nodeList.size() != 1 ? factory.createConditionNode(WhereSymbol.AND, nodeList) : nodeList.get(0); }
 }
 
 Node Constraint() :
@@ -117,8 +118,8 @@ ConditionNode Condition() :
     final List<String> value;
 }
 {
-    ( fieldName = Selector() operate = Operator() value = Arguments() )
-    { return factory.createComparisonNode(fieldName, operate, value); }
+    ( fieldName = Selector() operate = Operator() value = Values() )
+    { return factory.createWhereNode(fieldName, operate, value); }
 }
 
 String Selector() : {}
@@ -133,28 +134,28 @@ String Operator() : {}
     { return token.image; }
 }
 
-List<String> Arguments() :
+List<String> Values() :
 { final Object value; }
 {
-    ( <LPAREN> value = ConditionArguments() <RPAREN> ) { return (List) value; }
+    ( <LPAREN> value = ConditionValue() <RPAREN> ) { return (List) value; }
 |
-    value = Argument() { return Arrays.asList((String) value); }
+    value = Value() { return Arrays.asList((String) value); }
 }
 
-List<String> ConditionArguments() :
+List<String> ConditionValue() :
 {
     final List<String> list = new ArrayList<String>(3);
     String arg;
 }
 {
-    arg = Argument() { list.add(arg); }
+    arg = Value() { list.add(arg); }
     (
-        <OR> arg = Argument() { list.add(arg); }
+        <OR> arg = Value() { list.add(arg); }
     )*
     { return list; }
 }
 
-String Argument() :
+String Value() :
 {}
 {
     token = <UNRESERVED_STR> { return token.image; }
