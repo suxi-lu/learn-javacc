@@ -1,4 +1,6 @@
-package com.learn.javacc.rsql.asm.node;
+package com.learn.javacc.rsql.asm;
+
+import com.learn.javacc.rsql.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +39,7 @@ public abstract class ConditionNode implements Node {
 
     @Override
     public String toString() {
-        return "(" + ")";
+        return "(" + StringUtils.join(children, conditionSymbol.toString()) + ")";
     }
 
     @Override

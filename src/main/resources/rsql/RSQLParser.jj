@@ -12,6 +12,8 @@ options {
 
 PARSER_BEGIN(Parser)
 
+package com.learn.javacc.rsql.parser;
+
 import com.learn.javacc.rsql.asm.*;
 import com.learn.javacc.rsql.asm.node.*;
 
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-final class Parser {
+final class RSQLParser {
 
     private NodeFactory factory;
 
@@ -81,7 +83,7 @@ Node Or() :
     (
         <OR> node = And() { nodeList.add(node); }
     )*
-    { return nodeList.size() != 1 ? factory.createConditionNode(WhereSymbol.OR, nodeList) : nodeList.get(0); }
+    { return nodeList.size() != 1 ? factory.createConditionNode(ConditionSymbol.OR, nodeList) : nodeList.get(0); }
 }
 
 Node And() :
@@ -94,7 +96,7 @@ Node And() :
     (
         <AND> node = Constraint() { nodeList.add(node); }
     )*
-    { return nodeList.size() != 1 ? factory.createConditionNode(WhereSymbol.AND, nodeList) : nodeList.get(0); }
+    { return nodeList.size() != 1 ? factory.createConditionNode(ConditionSymbol.AND, nodeList) : nodeList.get(0); }
 }
 
 Node Constraint() :

@@ -13,4 +13,21 @@ package com.learn.javacc.rsql.exception;
  * @Package com.learn.javacc.rsql.exception
  */
 public class GlobalCommonException extends RuntimeException {
+
+    public GlobalCommonException() {
+
+    }
+
+    public GlobalCommonException(String message) {
+        super(message);
+    }
+
+    public GlobalCommonException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public GlobalCommonException(Throwable cause) {
+        super(cause);
+    }
+
 }

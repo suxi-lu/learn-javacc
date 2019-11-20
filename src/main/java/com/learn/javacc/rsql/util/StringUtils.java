@@ -1,7 +1,5 @@
 package com.learn.javacc.rsql.util;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.List;
 
 /**
@@ -18,11 +16,22 @@ import java.util.List;
  */
 public class StringUtils {
 
-    public static boolean hasLength(@Nullable String str) {
-        return (str != null && !str.isEmpty());
+    public static boolean isBlank(String str) {
+        int strLen;
+        if (str != null && (strLen = str.length()) != 0) {
+            for(int i = 0; i < strLen; ++i) {
+                if (!Character.isWhitespace(str.charAt(i))) {
+                    return false;
+                }
+            }
+
+            return true;
+        } else {
+            return true;
+        }
     }
 
-    public static boolean hasText(@Nullable CharSequence str) {
+    public static boolean hasText(CharSequence str) {
         return (str != null && str.length() > 0 && containsText(str));
     }
 
@@ -49,7 +58,7 @@ public class StringUtils {
             sb.append(list.get(i));
         }
 
-        return sb.substring(0, sb.length() - delim.length());
+        return sb.toString();
     }
 
 }

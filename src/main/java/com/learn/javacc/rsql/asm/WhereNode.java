@@ -1,6 +1,6 @@
-package com.learn.javacc.rsql.asm.node;
+package com.learn.javacc.rsql.asm;
 
-import com.learn.javacc.cust.asm.Assert;
+import com.learn.javacc.rsql.util.Assert;
 import com.learn.javacc.rsql.util.StringUtils;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class WhereNode implements Node {
 
     public WhereNode(WhereOperator operator, String fieldName, List<String> value) {
         Assert.notNull(operator, "operator must not be null");
-        Assert.notBlank(fieldName, "fieldName must not be blank");
+        Assert.hasText(fieldName, "fieldName must not be text");
         Assert.notEmpty(value, "value list must not be empty");
 
         this.operator = operator;

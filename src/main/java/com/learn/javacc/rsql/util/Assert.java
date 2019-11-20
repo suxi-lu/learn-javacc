@@ -1,8 +1,6 @@
 package com.learn.javacc.rsql.util;
 
-import com.sun.istack.internal.Nullable;
-
-import java.util.function.Supplier;
+import java.util.Collection;
 
 /**
  * <p> Title: 标题 </p>
@@ -18,15 +16,15 @@ import java.util.function.Supplier;
  */
 public abstract class Assert {
 
-    public static void state(boolean expression, String message) {
-        if (!expression) {
-            throw new IllegalStateException(message);
+    public static void notEmpty(Object[] array, String message) {
+        if (array == null || array.length == 0) {
+            throw new IllegalArgumentException(message);
         }
     }
 
-    public static void state(boolean expression, Supplier<String> messageSupplier) {
-        if (!expression) {
-            throw new IllegalStateException(nullSafeGet(messageSupplier));
+    public static void notEmpty(Collection<?> collection, String message) {
+        if (collection == null || collection.isEmpty()) {
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -36,86 +34,16 @@ public abstract class Assert {
         }
     }
 
-    public static void isTrue(boolean expression, Supplier<String> messageSupplier) {
-        if (!expression) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    public static void isNull(@Nullable Object object, String message) {
-        if (object != null) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    public static void isNull(@Nullable Object object, Supplier<String> messageSupplier) {
-        if (object != null) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    public static void notNull(@Nullable Object object, String message) {
+    public static void notNull(Object object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
         }
     }
 
-    public static void notNull(@Nullable Object object, Supplier<String> messageSupplier) {
-        if (object == null) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    public static void hasLength(@Nullable String text, String message) {
-        if (!StringUtils.hasLength(text)) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    public static void hasLength(@Nullable String text, Supplier<String> messageSupplier) {
-        if (!StringUtils.hasLength(text)) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    public static void hasText(@Nullable String text, String message) {
+    public static void hasText(String text, String message) {
         if (!StringUtils.hasText(text)) {
             throw new IllegalArgumentException(message);
         }
     }
-
-    public static void hasText(@Nullable String text, Supplier<String> messageSupplier) {
-        if (!StringUtils.hasText(text)) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    public static void doesNotContain(@Nullable String textToSearch, String substring, String message) {
-        if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
-                textToSearch.contains(substring)) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    public static void doesNotContain(@Nullable String textToSearch, String substring, Supplier<String> messageSupplier) {
-        if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
-                textToSearch.contains(substring)) {
-            throw new IllegalArgumentException(nullSafeGet(messageSupplier));
-        }
-    }
-
-    private static boolean endsWithSeparator(String msg) {
-        return (msg.endsWith(":") || msg.endsWith(";") || msg.endsWith(",") || msg.endsWith("."));
-    }
-
-    private static String messageWithTypeName(String msg, @Nullable Object typeName) {
-        return msg + (msg.endsWith(" ") ? "" : ": ") + typeName;
-    }
-
-    @Nullable
-    private static String nullSafeGet(@Nullable Supplier<String> messageSupplier) {
-        return (messageSupplier != null ? messageSupplier.get() : null);
-    }
-
 
 }

@@ -3,7 +3,7 @@ package com.learn.javacc.rsql.asm;
 /**
  * <p> Title: 标题 </p>
  * <pre> Description: 描述 </pre>
- * date: 2019/11/19 21:11
+ * date: 2019/11/19 20:31
  * <p>
  * Copyright: © 2012-2019 CSG. All rights reserved.
  * Company: CSG
@@ -12,8 +12,5 @@ package com.learn.javacc.rsql.asm;
  * @version V1.0
  * @Package com.learn.javacc.rsql
  */
-public class RSQLParser {
-
-
-
+public interface Node {
 }

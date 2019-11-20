@@ -1,7 +1,7 @@
-package com.learn.javacc.rsql.asm.node;
+package com.learn.javacc.rsql.asm;
 
-import com.learn.javacc.cust.asm.Assert;
-import com.learn.javacc.cust.asm.StringUtils;
+import com.learn.javacc.rsql.util.Assert;
+import com.learn.javacc.rsql.util.StringUtils;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -30,7 +30,7 @@ public class WhereOperator {
     public WhereOperator(String[] symbol, boolean multiValue) {
         Assert.notEmpty(symbol, "symbol must not be null or empty");
         for (String s : symbol) {
-            Assert.isTrue(isValidOperatorSymbol(s), "symbol must match: %s", SYMBOL_PATTERN);
+            Assert.isTrue(isValidOperatorSymbol(s), String.format("symbol must match: %s", SYMBOL_PATTERN));
         }
 
         this.symbol = symbol;
@@ -59,6 +59,11 @@ public class WhereOperator {
 
     public String getSymbolStr() {
         return symbol[0];
+    }
+
+    @Override
+    public String toString() {
+        return getSymbolStr();
     }
 
     @Override

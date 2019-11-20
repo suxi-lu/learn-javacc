@@ -1,11 +1,11 @@
-package com.learn.javacc.rsql.asm.node;
+package com.learn.javacc.rsql.asm;
 
 import java.util.List;
 
 /**
  * <p> Title: 标题 </p>
  * <pre> Description: 描述 </pre>
- * date: 2019/11/19 20:32
+ * date: 2019/11/19 20:31
  * <p>
  * Copyright: © 2012-2019 CSG. All rights reserved.
  * Company: CSG
@@ -14,15 +14,15 @@ import java.util.List;
  * @version V1.0
  * @Package com.learn.javacc.rsql
  */
-public class AndNode extends ConditionNode {
+public class OrNode extends ConditionNode {
 
-    public AndNode(List<Node> children) {
-        super(ConditionSymbol.AND, children);
+    public OrNode(List<Node> children) {
+        super(ConditionSymbol.OR, children);
     }
 
     @Override
     public Node withChildren(List<Node> children) {
-        return new AndNode(children);
+        return new OrNode(children);
     }
 
 }
