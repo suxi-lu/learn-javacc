@@ -45,11 +45,19 @@ public class WhereOperator {
         this(symbol, false);
     }
 
+    public boolean isMultiValue() {
+        return multiValue;
+    }
+
+    public String[] getSymbol() {
+        return symbol;
+    }
+
     private boolean isValidOperatorSymbol(String str) {
         return !StringUtils.isBlank(str) && SYMBOL_PATTERN.matcher(str).matches();
     }
 
-    public String getSymbol() {
+    public String getSymbolStr() {
         return symbol[0];
     }
 
@@ -58,12 +66,12 @@ public class WhereOperator {
         if (this == o) return true;
         if (!(o instanceof WhereOperator)) return false;
         WhereOperator that = (WhereOperator) o;
-        return getSymbol().equals(that.getSymbol());
+        return getSymbolStr().equals(that.getSymbolStr());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSymbol());
+        return Objects.hash(getSymbolStr());
     }
 
 }

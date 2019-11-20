@@ -19,22 +19,22 @@ import java.util.List;
  */
 public class WhereNode implements Node {
 
-    private final WhereOperator whereOperator;
+    private final WhereOperator operator;
     private final String fieldName;
     private final List<String> value;
 
-    public WhereNode(WhereOperator whereOperator, String fieldName, List<String> value) {
-        Assert.notNull(whereOperator, "whereOperator must not be null");
+    public WhereNode(WhereOperator operator, String fieldName, List<String> value) {
+        Assert.notNull(operator, "operator must not be null");
         Assert.notBlank(fieldName, "fieldName must not be blank");
         Assert.notEmpty(value, "value list must not be empty");
 
-        this.whereOperator = whereOperator;
+        this.operator = operator;
         this.fieldName = fieldName;
         this.value = value;
     }
 
-    public WhereOperator getWhereOperator() {
-        return whereOperator;
+    public WhereOperator getOperator() {
+        return operator;
     }
 
     public String getFieldName() {
@@ -48,7 +48,7 @@ public class WhereNode implements Node {
     @Override
     public String toString() {
         String valueStr = value.size() > 1 ? "('" + StringUtils.join(value, "','") + "')": "'" + value.get(0) + "'";
-        return fieldName + whereOperator + valueStr;
+        return fieldName + operator + valueStr;
     }
 
 }

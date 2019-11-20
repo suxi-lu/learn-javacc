@@ -60,7 +60,7 @@ TOKEN :
     | < OR         : "," >
     | < LPAREN     : "(" >
     | < RPAREN     : ")" >
-    | < CONDITION  : (( ( "=" (["a"-"z", "A"-"Z"])* ) | "!" ) "=") | (( ">" | "<" ) ( "=" )?) >
+    | < CONDITION  : ( ( ( "=" (["a"-"z", "A"-"Z"])* ) | "!" ) "=") | ( ( ">" | "<" ) ( "=" )? ) >
 }
 
 
@@ -111,38 +111,38 @@ Node Group() :
     { return node; }
 }
 
-ConditionNode Condition() :
+WhereNode Condition() :
 {
     final String fieldName;
     final String operate;
     final List<String> value;
 }
 {
-    ( fieldName = Selector() operate = Operator() value = Values() )
+    ( fieldName = FieldName() operate = WhereOperator() value = WhereValue() )
     { return factory.createWhereNode(fieldName, operate, value); }
 }
 
-String Selector() : {}
+String FieldName() : {}
 {
     token = <UNRESERVED_STR>
     { return token.image; }
 }
 
-String Operator() : {}
+String WhereOperator() : {}
 {
     ( token = <CONDITION> )
     { return token.image; }
 }
 
-List<String> Values() :
+List<String> WhereValue() :
 { final Object value; }
 {
-    ( <LPAREN> value = ConditionValue() <RPAREN> ) { return (List) value; }
+    ( <LPAREN> value = MultiValue() <RPAREN> ) { return (List) value; }
 |
     value = Value() { return Arrays.asList((String) value); }
 }
 
-List<String> ConditionValue() :
+List<String> MultiValue() :
 {
     final List<String> list = new ArrayList<String>(3);
     String arg;

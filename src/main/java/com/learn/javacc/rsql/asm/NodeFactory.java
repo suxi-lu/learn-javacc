@@ -28,7 +28,9 @@ public class NodeFactory {
         this.whereOperatorMap = new HashMap<>(whereOperatorSet.size());
 
         for (WhereOperator operator : whereOperatorSet) {
-
+            for (String s : operator.getSymbol()) {
+                whereOperatorMap.put(s, operator);
+            }
         }
     }
 
@@ -40,8 +42,12 @@ public class NodeFactory {
         }
     }
 
-    public ConditionNode createWhereNode(String fieldName, String operate, List<String> value) {
-        return null;
+    public WhereNode createWhereNode(String fieldName, String operate, List<String> value) {
+        WhereOperator whereOperator = whereOperatorMap.get(operate);
+        if (whereOperator == null) {
+            throw new GlobalCommonException();
+        }
+        return new WhereNode(whereOperator, fieldName, value);
     }
 
 }
